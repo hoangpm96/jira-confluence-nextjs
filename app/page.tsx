@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import EnvVarsForm from './EnvVarsForm';
+import GPTInstructionsForm from './GPTInstructionsForm';
 
 export default function Home() {
   return (
@@ -640,43 +641,88 @@ export default function Home() {
             <li style={{ marginBottom: '1rem' }}>
               <strong>Go to GPT Editor:</strong> <a href="https://chat.openai.com/gpts/editor" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>chat.openai.com/gpts/editor</a>
               <br />
-              <span style={{ fontSize: '0.9rem', color: '#666' }}>You need ChatGPT Plus or Team subscription</span>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: ChatGPT GPT editor page]</em>
-              </div>
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>You need ChatGPT Plus or Team subscription.</span>
             </li>
             <li style={{ marginBottom: '1rem' }}>
-              <strong>Click &quot;Create a GPT&quot;</strong> or &quot;+ Create&quot; button
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Create GPT button highlighted]</em>
-              </div>
-            </li>
-            <li style={{ marginBottom: '1rem' }}>
-              <strong>Switch to &quot;Configure&quot; tab</strong>
-              <br />
-              <span style={{ fontSize: '0.9rem', color: '#666' }}>Skip the &quot;Create&quot; tab - we&apos;ll configure manually</span>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Configure tab selected]</em>
-              </div>
-            </li>
-            <li style={{ marginBottom: '1rem' }}>
-              <strong>Fill in basic information:</strong>
+              <strong>Switch to &quot;Configure&quot; tab</strong> and fill in the basic information:
               <ul style={{ marginTop: '0.5rem' }}>
                 <li><strong>Name:</strong> <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>Jira & Confluence Assistant</code></li>
                 <li><strong>Description:</strong> <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>Manage Jira issues and Confluence pages using natural language</code></li>
-                <li><strong>Instructions:</strong> Copy from <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>CUSTOM_GPT_INSTRUCTIONS.md</code> in the repo</li>
               </ul>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Configure page with name, description, and instructions filled]</em>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Generate Instructions:</strong> Use the form below to create custom instructions for your GPT
+              <GPTInstructionsForm />
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Add Conversation Starters (Optional):</strong> These help users discover what your GPT can do
+              <div style={{ backgroundColor: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '1px solid #e5e7eb' }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>Suggested prompts:</p>
+                <div style={{ display: 'grid', gap: '0.5rem' }}>
+                  <code style={{ backgroundColor: '#e5e7eb', padding: '0.5rem', borderRadius: '0.375rem', fontSize: '0.875rem', display: 'block' }}>
+                    &quot;Liệt kê tất cả Confluence pages&quot;
+                  </code>
+                  <code style={{ backgroundColor: '#e5e7eb', padding: '0.5rem', borderRadius: '0.375rem', fontSize: '0.875rem', display: 'block' }}>
+                    &quot;Tạo user story cho tính năng đăng nhập&quot;
+                  </code>
+                  <code style={{ backgroundColor: '#e5e7eb', padding: '0.5rem', borderRadius: '0.375rem', fontSize: '0.875rem', display: 'block' }}>
+                    &quot;Thêm sequence diagram cho luồng thanh toán&quot;
+                  </code>
+                  <code style={{ backgroundColor: '#e5e7eb', padding: '0.5rem', borderRadius: '0.375rem', fontSize: '0.875rem', display: 'block' }}>
+                    &quot;Tạo 5 user stories cho module xác thực&quot;
+                  </code>
+                </div>
+                <p style={{ margin: '0.75rem 0 0 0', fontSize: '0.8rem', color: '#666' }}>
+                  Copy these into the &quot;Conversation starters&quot; field in the Configure tab (you can add up to 4).
+                </p>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Upload Knowledge (Optional):</strong> Add reference files for your GPT
+              <div style={{ backgroundColor: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '1px solid #e5e7eb' }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem' }}>
+                  You can upload files (PDF, docs, etc.) that contain additional context about your projects, workflows, or company processes.
+                </p>
+                <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.8rem', color: '#666' }}>
+                  💡 <strong>Tip:</strong> Upload your team&apos;s coding standards, Jira workflow documentation, or Confluence templates to help the GPT provide more relevant suggestions.
+                </p>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Select Model (Optional):</strong> Choose which GPT model to use
+              <div style={{ backgroundColor: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '1px solid #e5e7eb' }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem' }}>
+                  <strong>Recommended:</strong> Keep the default setting (usually the newest model like GPT-4o or GPT-4 Turbo).
+                </p>
+                <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.8rem', color: '#666' }}>
+                  💡 The newest model provides better performance, understanding, and more accurate responses for complex Jira/Confluence operations.
+                </p>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Configure Capabilities (Optional):</strong> Choose what functions your GPT can use
+              <div style={{ backgroundColor: '#f9fafb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '1px solid #e5e7eb' }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>Available options:</p>
+                <ul style={{ margin: '0.5rem 0', paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Web Browsing:</strong> Not needed for this GPT (all data comes from your Jira/Confluence)
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>DALL·E Image Generation:</strong> Not needed for this GPT
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>Code Interpreter:</strong> ✅ Recommended - Helps with processing data and formatting responses
+                  </li>
+                </ul>
+                <p style={{ margin: '0.75rem 0 0 0', fontSize: '0.8rem', color: '#666' }}>
+                  💡 <strong>Suggestion:</strong> Enable &quot;Code Interpreter&quot; only, disable the others to keep the GPT focused on Jira/Confluence tasks.
+                </p>
               </div>
             </li>
             <li style={{ marginBottom: '1rem' }}>
               <strong>Scroll down to &quot;Actions&quot; section</strong>
               <br />
               <span style={{ fontSize: '0.9rem', color: '#666' }}>Click &quot;Create new action&quot; button</span>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Actions section with Create new action button]</em>
-              </div>
             </li>
             <li style={{ marginBottom: '1rem' }}>
               <strong>Import OpenAPI schema:</strong>
