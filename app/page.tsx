@@ -556,13 +556,15 @@ export default function Home() {
                 marginTop: '1rem',
                 border: '1px solid #e5e7eb',
                 borderRadius: '0.5rem',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                maxWidth: '100%'
               }}>
                 <img
                   src="/add-variable-and-deploy.png"
                   alt="Environment Variables section with variables filled in and Deploy button highlighted"
                   style={{
                     width: '100%',
+                    maxWidth: '600px',
                     height: 'auto',
                     display: 'block'
                   }}
@@ -575,11 +577,50 @@ export default function Home() {
             <li style={{ marginBottom: '1rem' }}>
               <strong>Wait 2-3 minutes:</strong> Vercel will build and deploy your application. You can watch the build logs in real-time.
             </li>
-            <li style={{ marginBottom: '0' }}>
-              <strong>Success! 🎉</strong> Copy your URL (e.g., <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>your-app.vercel.app</code>)
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Success page with URL and Visit button]</em>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Go to Dashboard:</strong> After deployment completes, click &quot;Continue to Dashboard&quot;
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden',
+                maxWidth: '100%'
+              }}>
+                <img
+                  src="/after-deployed.png"
+                  alt="After deployment success screen with Continue to Dashboard button highlighted"
+                  style={{
+                    width: '100%',
+                    maxWidth: '600px',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
               </div>
+            </li>
+            <li style={{ marginBottom: '0' }}>
+              <strong>Copy your deployment URL:</strong> In the dashboard, find your domain under &quot;Domains&quot; section and copy it
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden',
+                maxWidth: '100%'
+              }}>
+                <img
+                  src="/domain-and-copy.png"
+                  alt="Vercel dashboard showing the deployment domain"
+                  style={{
+                    width: '100%',
+                    maxWidth: '600px',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem', marginBottom: 0 }}>
+                Your URL will look like: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>your-app.vercel.app</code>
+              </p>
             </li>
           </ol>
           <div style={{ backgroundColor: '#dbeafe', padding: '1rem', borderRadius: '0.5rem', marginTop: '1.5rem', borderLeft: '4px solid #3b82f6' }}>
