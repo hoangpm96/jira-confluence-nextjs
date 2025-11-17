@@ -2,6 +2,33 @@
 
 Middleware API built with **Next.js 15** to integrate Custom GPT with Jira and Confluence. This is a 1:1 conversion from the original FastAPI (Python) implementation.
 
+## Architecture
+
+```
+┌─────────────────┐
+│   Custom GPT    │  ← User nói chuyện bằng natural language
+└────────┬────────┘
+         │ JSON over HTTPS
+         │ Header: X-API-Key
+         ▼
+┌─────────────────┐
+│  Middleware API │  ← FastAPI trên Vercel
+│                 │
+│  ┌───────────┐  │
+│  │ Endpoints │  │
+│  └─────┬─────┘  │
+│        │        │
+│  ┌─────▼──────┐ │
+│  │  Services  │ │  ← Business logic
+│  └─────┬──────┘ │
+└────────┼────────┘
+         │
+    ┌────▼─────┐
+    │ Atlassian│
+    │   APIs   │
+    └──────────┘
+```
+
 ## Features
 
 - **18 API Endpoints** - Complete Jira and Confluence integration
@@ -269,8 +296,3 @@ This Next.js implementation provides the same functionality as the original Fast
 ## License
 
 MIT
-
-## Credits
-
-Original FastAPI version by: Hoang PM
-Next.js conversion: 1:1 feature parity
