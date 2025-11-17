@@ -203,7 +203,7 @@ The middleware automatically wraps your Mermaid diagram code in the proper HTML 
 ### Example: Adding a Mermaid Diagram via API
 
 ```bash
-curl -X POST https://your-api.vercel.app/api/confluence/page/131172/append \
+curl -X POST https://your-api.vercel.app/api/confluence/page/YOUR-PAGE-ID/append \
   -H "Content-Type: application/json" \
   -H "X-API-Key: your-secret-key-123" \
   -d '{
@@ -294,6 +294,8 @@ Before adding to Confluence, test your Mermaid syntax at:
 **Solution**: Each diagram needs its own separate `<ac:structured-macro>` block
 
 ## Custom GPT Integration
+
+> **📋 Quick Setup:** For complete, copy-paste ready instructions, see [CUSTOM_GPT_INSTRUCTIONS.md](./CUSTOM_GPT_INSTRUCTIONS.md)
 
 ### 1. Create Custom GPT
 
@@ -441,7 +443,7 @@ curl -X POST https://your-api.vercel.app/api/workflow/stories-to-confluence \
         "story_points": 3
       }
     ],
-    "page_id": "131172"
+    "page_id": "YOUR-PAGE-ID"
   }'
 ```
 

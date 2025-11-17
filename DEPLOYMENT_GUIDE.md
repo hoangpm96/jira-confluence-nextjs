@@ -20,7 +20,7 @@ Complete guide to deploy your Jira & Confluence API to Vercel and integrate with
 
 1. Go to your Confluence space
 2. Look at the URL: `https://your-domain.atlassian.net/wiki/spaces/SPACEKEY/...`
-3. For personal spaces, the key looks like: `~712020cd3185085d6847b9aadf76f66028a738`
+3. For personal spaces, the key looks like: `~accountId123456789` (starts with ~)
 4. Copy this space key
 
 ## Step 2.5: Install HTML Macro for Confluence (3 minutes) - Required for Mermaid Diagrams
@@ -175,6 +175,8 @@ curl -H "X-API-Key: my-secret-key-123" \
 ```
 
 ## Step 7: Create Custom GPT (10 minutes)
+
+> **📋 Quick Copy-Paste Instructions:** For complete, ready-to-use GPT configuration, see [CUSTOM_GPT_INSTRUCTIONS.md](./CUSTOM_GPT_INSTRUCTIONS.md)
 
 ### 7.1 Go to GPT Editor
 
