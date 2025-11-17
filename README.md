@@ -134,6 +134,165 @@ vercel --prod
 3. Add environment variables in Vercel project settings
 4. Deploy
 
+## Mermaid Diagram Support in Confluence
+
+This middleware now supports adding **Mermaid diagrams** to Confluence Cloud pages using the HTML Macro approach.
+
+### Why Mermaid?
+
+Mermaid allows you to create diagrams and visualizations using a simple markdown-like syntax. Perfect for:
+- Sequence diagrams
+- Flowcharts
+- Class diagrams
+- State diagrams
+- And more!
+
+### Prerequisites: Install HTML Macro for Confluence
+
+**IMPORTANT**: Confluence Cloud requires a plugin to render HTML content. You must install one of these:
+
+#### Option 1: HTML Macro for Confluence Cloud by Narva Software (Recommended)
+
+1. Go to **Atlassian Marketplace**: https://marketplace.atlassian.com/apps/1229863/html-macro-for-confluence-cloud
+2. Click **Get it now** or **Try it free**
+3. Select your Confluence site
+4. Follow the installation prompts
+5. Verify installation by going to **Settings → Manage apps** in Confluence
+
+#### Option 2: HTML for Confluence Cloud by Appfire
+
+1. Go to **Atlassian Marketplace**: https://marketplace.atlassian.com/apps/1213263/html-for-confluence-cloud
+2. Click **Get it now** or **Try it free**
+3. Select your Confluence site and install
+
+### How It Works
+
+The middleware automatically wraps your Mermaid diagram code in the proper HTML Macro format:
+
+```html
+<ac:structured-macro ac:name="html">
+  <ac:plain-text-body><![CDATA[
+  <div class="mermaid">
+  sequenceDiagram
+      participant User
+      participant UI
+      participant Service
+      User->>UI: Access /login
+      UI->>Service: Send auth request
+      Service-->>UI: Return login result
+  </div>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+  ]]></ac:plain-text-body>
+</ac:structured-macro>
+```
+
+### Supported Diagram Types
+
+1. **Sequence Diagram** - Show interactions between components
+2. **Flowchart** - Visualize decision flows and processes
+3. **Class Diagram** - Document system architecture
+4. **State Diagram** - Model state transitions
+5. **Gantt Chart** - Project timelines
+6. **Pie Chart** - Data visualization
+7. **Git Graph** - Version control flows
+
+### Example: Adding a Mermaid Diagram via API
+
+```bash
+curl -X POST https://your-api.vercel.app/api/confluence/page/131172/append \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: your-secret-key-123" \
+  -d '{
+    "content": "<ac:structured-macro ac:name=\"html\"><ac:plain-text-body><![CDATA[<div class=\"mermaid\">graph TD\n    A[Start] --> B[Process]\n    B --> C[End]\n</div>\n<script type=\"module\">\n  import mermaid from '\''https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'\'';\n  mermaid.initialize({ startOnLoad: true, theme: '\''neutral'\'' });\n</script>]]></ac:plain-text-body></ac:structured-macro>"
+  }'
+```
+
+### Example Mermaid Diagrams
+
+#### Login Flow Sequence Diagram
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LoginPage
+    participant AuthService
+    participant Database
+    participant Dashboard
+
+    User->>LoginPage: Access /login
+    LoginPage->>User: Display form (Email, Password)
+    User->>LoginPage: Enter credentials
+    LoginPage->>AuthService: Send auth request
+    AuthService->>Database: Verify email and password
+    Database-->>AuthService: Return user info
+    alt Invalid credentials
+        AuthService-->>LoginPage: Show error message
+    else Login successful
+        AuthService->>Dashboard: Redirect user
+    end
+```
+
+#### Simple Flowchart
+
+```mermaid
+graph TD
+    A[User Opens App] --> B{Is Logged In?}
+    B -->|Yes| C[Show Dashboard]
+    B -->|No| D[Show Login Page]
+    D --> E[Enter Credentials]
+    E --> F{Valid?}
+    F -->|Yes| C
+    F -->|No| G[Show Error]
+    G --> D
+```
+
+### Configuration Options
+
+You can customize the Mermaid appearance:
+
+| Theme | Description |
+|-------|-------------|
+| `default` | Standard Mermaid theme |
+| `neutral` | Clean, professional look |
+| `dark` | Dark mode theme |
+| `forest` | Green-toned theme |
+
+Change the theme in the initialization:
+
+```javascript
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark'  // Change this value
+});
+```
+
+### Testing Your Diagrams
+
+Before adding to Confluence, test your Mermaid syntax at:
+**https://mermaid.live**
+
+### Important Notes
+
+1. **One Diagram Per Macro**: Each `<ac:structured-macro>` should contain only one diagram
+2. **Multiple Diagrams**: Create separate macros for multiple diagrams on the same page
+3. **No External Scripts**: Confluence blocks external `<script>` tags outside of the HTML Macro
+4. **Plugin Required**: Without the HTML Macro plugin, diagrams will not render
+
+### Troubleshooting
+
+**Problem**: Diagram doesn't appear
+**Solution**: Verify the HTML Macro plugin is installed and enabled
+
+**Problem**: Syntax error in diagram
+**Solution**: Test your Mermaid code at https://mermaid.live first
+
+**Problem**: Multiple diagrams on one page not working
+**Solution**: Each diagram needs its own separate `<ac:structured-macro>` block
+
 ## Custom GPT Integration
 
 ### 1. Create Custom GPT
@@ -152,11 +311,30 @@ WORKFLOW:
    - Format as: "As a [actor], I want to [action] so that [benefit]"
    - Create in Jira using POST /api/jira/story
    - Optionally append to Confluence page
+3. When user wants to add Mermaid diagrams:
+   - Wrap diagram code in HTML Macro format
+   - Use POST /api/confluence/page/[pageId]/append
+   - Remind user that HTML Macro plugin must be installed
+
+MERMAID DIAGRAM FORMAT:
+Use this structure for all Mermaid diagrams in Confluence:
+<ac:structured-macro ac:name="html">
+  <ac:plain-text-body><![CDATA[
+  <div class="mermaid">
+  [Your Mermaid diagram code here]
+  </div>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+  ]]></ac:plain-text-body>
+</ac:structured-macro>
 
 DEFAULT SETTINGS:
 - Default Space Key: ~your-space-key
 - Always confirm with user before creating/updating
 - Show URLs of created Jira issues/Confluence pages
+- Test Mermaid diagrams at https://mermaid.live before adding to Confluence
 ```
 
 ### 3. Add Actions

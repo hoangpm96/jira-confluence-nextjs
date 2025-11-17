@@ -23,6 +23,30 @@ Complete guide to deploy your Jira & Confluence API to Vercel and integrate with
 3. For personal spaces, the key looks like: `~712020cd3185085d6847b9aadf76f66028a738`
 4. Copy this space key
 
+## Step 2.5: Install HTML Macro for Confluence (3 minutes) - Required for Mermaid Diagrams
+
+**IMPORTANT**: To use Mermaid diagrams in Confluence, you must install an HTML Macro plugin.
+
+### Recommended: HTML Macro for Confluence Cloud by Narva Software
+
+1. Go to **Atlassian Marketplace**: https://marketplace.atlassian.com/apps/1229863/html-macro-for-confluence-cloud
+2. Click **Get it now** or **Try it free**
+3. Select your Confluence site from the dropdown
+4. Click **Install** and approve the permissions
+5. Wait for installation to complete (usually 30 seconds)
+6. Verify installation:
+   - Go to your Confluence site
+   - Click **Settings** (⚙️ icon) → **Manage apps**
+   - Search for "HTML Macro"
+   - Ensure status is "Enabled"
+
+### Alternative: HTML for Confluence Cloud by Appfire
+
+1. Go to: https://marketplace.atlassian.com/apps/1213263/html-for-confluence-cloud
+2. Follow same installation steps as above
+
+**Why this is needed**: Confluence Cloud blocks raw HTML/JavaScript for security. The HTML Macro plugin provides a secure way to embed HTML content, which is required for rendering Mermaid diagrams with the CDN script.
+
 ## Step 3: Clone and Setup Project (2 minutes)
 
 ```bash
@@ -176,7 +200,8 @@ You are an expert Business Analyst who helps manage Jira user stories and Conflu
 CAPABILITIES:
 - List and search Confluence pages
 - Read page content
-- Create and update Confluence pages
+- Create and update Confluence pages with HTML content
+- Add Mermaid diagrams to Confluence pages
 - List Jira projects
 - Create user stories in Jira (single or bulk)
 - Search Jira issues using JQL
@@ -209,6 +234,63 @@ WORKFLOW FOR BULK STORIES:
 2. Use POST /api/jira/stories/bulk for efficiency
 3. Offer to create a summary page in Confluence
 
+WORKFLOW FOR MERMAID DIAGRAMS:
+
+1. When user wants to add diagrams (flowcharts, sequence diagrams, etc.):
+   - Ask what type of diagram they need
+   - Ask for the flow/process details
+   - Create the Mermaid syntax
+
+2. Wrap the diagram in HTML Macro format:
+<ac:structured-macro ac:name="html">
+  <ac:plain-text-body><![CDATA[
+  <div class="mermaid">
+  [Mermaid diagram code here]
+  </div>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+  ]]></ac:plain-text-body>
+</ac:structured-macro>
+
+3. Use POST /api/confluence/page/[pageId]/append to add to page
+
+4. Remind user that HTML Macro plugin must be installed in Confluence
+
+SUPPORTED MERMAID DIAGRAM TYPES:
+- sequenceDiagram: User flows and interactions
+- graph/flowchart: Process flows and decision trees
+- classDiagram: System architecture
+- stateDiagram: State transitions
+- gantt: Project timelines
+- pie: Data visualization
+- gitGraph: Version control flows
+
+MERMAID EXAMPLES:
+
+Sequence Diagram:
+```
+sequenceDiagram
+    participant User
+    participant UI
+    participant API
+    User->>UI: Click login
+    UI->>API: POST /auth
+    API-->>UI: Return token
+    UI-->>User: Show dashboard
+```
+
+Flowchart:
+```
+graph TD
+    A[Start] --> B{Condition?}
+    B -->|Yes| C[Action 1]
+    B -->|No| D[Action 2]
+    C --> E[End]
+    D --> E
+```
+
 BEST PRACTICES:
 
 - Always confirm details before creating
@@ -216,11 +298,16 @@ BEST PRACTICES:
 - Suggest documentation in Confluence
 - Use proper formatting for Acceptance Criteria
 - Recommend appropriate story points based on complexity
+- For complex flows, suggest adding Mermaid diagrams
+- Test diagram syntax at https://mermaid.live before adding
+- Use 'neutral' theme for professional appearance
 
 DEFAULT SETTINGS:
 - Default project: SCRUM (ask user if different)
 - Default priority: Medium
 - Always use Story issue type unless specified
+- Mermaid theme: neutral
+- HTML Macro plugin required for diagrams
 
 Be conversational, ask clarifying questions, and guide users through the process.
 ```
@@ -278,6 +365,26 @@ Then test:
 
 **GPT:** Will create stories and automatically document them in Confluence
 
+### Example 4: Add Sequence Diagram
+
+**User:** "Add a sequence diagram showing the login flow to the Architecture page"
+
+**GPT:** Will:
+1. Ask for the login flow details
+2. Generate Mermaid sequence diagram syntax
+3. Wrap it in HTML Macro format
+4. Append to the specified Confluence page
+5. Remind about HTML Macro plugin requirement
+
+### Example 5: Document User Flow with Diagram
+
+**User:** "Create a user story for checkout process and add a flowchart to show the steps"
+
+**GPT:** Will:
+1. Create the user story in Jira
+2. Generate a Mermaid flowchart of the checkout process
+3. Add both the story summary and diagram to Confluence
+
 ## Troubleshooting
 
 ### Issue: "Invalid API Key"
@@ -317,6 +424,36 @@ Then test:
 - Try reimporting the schema
 - Check Vercel deployment logs for errors
 
+### Issue: Mermaid diagram not rendering in Confluence
+
+**Solution:**
+1. **Plugin not installed:**
+   - Go to Confluence → Settings → Manage apps
+   - Search for "HTML Macro"
+   - If not found, install from Atlassian Marketplace
+   - Ensure status is "Enabled"
+
+2. **Wrong macro format:**
+   - Ensure diagram is wrapped in `<ac:structured-macro ac:name="html">`
+   - Check CDATA section is properly closed: `]]>`
+   - Verify script import is inside the macro
+
+3. **Syntax error in diagram:**
+   - Test the Mermaid code at https://mermaid.live
+   - Fix any syntax errors before adding to Confluence
+   - Check for missing quotes, arrows, or parentheses
+
+4. **Multiple diagrams not showing:**
+   - Each diagram needs its own separate `<ac:structured-macro>` block
+   - Don't put multiple `<div class="mermaid">` in one macro
+
+### Issue: Diagram shows as raw HTML/code
+
+**Solution:**
+- HTML Macro plugin is not installed or disabled
+- Page might be in Edit mode (diagrams render in View mode)
+- Clear browser cache and reload the page
+
 ## Advanced Configuration
 
 ### Custom Story Points Field
@@ -353,6 +490,58 @@ Add to GPT Knowledge:
 - User Story Template
 - Acceptance Criteria Checklist
 - Definition of Done
+
+### Mermaid Diagram Best Practices
+
+**When to use each diagram type:**
+
+1. **Sequence Diagram** - User authentication, API calls, service interactions
+2. **Flowchart** - Decision trees, process flows, user journeys
+3. **Class Diagram** - System architecture, database schema, component relationships
+4. **State Diagram** - Order status, workflow states, application states
+5. **Gantt Chart** - Sprint timelines, project schedules, release planning
+
+**Custom GPT prompt for diagrams:**
+
+Add this to your GPT's custom instructions for better diagram generation:
+
+```
+When creating diagrams:
+1. Always ask clarifying questions about the flow/process
+2. Start with a simple diagram, offer to add details
+3. Use descriptive participant/node names
+4. Add comments in diagram code for complex sections
+5. Suggest diagram type based on use case
+6. Test syntax at mermaid.live before adding to Confluence
+```
+
+**Example diagram templates to add to GPT Knowledge:**
+
+```markdown
+# Login Flow Template
+sequenceDiagram
+    participant U as User
+    participant F as Frontend
+    participant A as Auth Service
+    participant D as Database
+
+    U->>F: Enter credentials
+    F->>A: POST /login
+    A->>D: Verify credentials
+    D-->>A: User data
+    A-->>F: JWT token
+    F-->>U: Redirect to dashboard
+```
+
+```markdown
+# Decision Flow Template
+graph TD
+    Start[User Action] --> Decision{Check Condition}
+    Decision -->|Yes| ActionA[Perform A]
+    Decision -->|No| ActionB[Perform B]
+    ActionA --> End[Complete]
+    ActionB --> End
+```
 
 ## Monitoring & Maintenance
 
@@ -403,7 +592,35 @@ git push
 2. Add more templates to GPT Knowledge
 3. Train your team on using the GPT
 4. Create documentation pages in Confluence
-5. Monitor and optimize based on usage
+5. Install HTML Macro plugin for Mermaid diagram support
+6. Create diagram templates for common flows
+7. Monitor and optimize based on usage
+
+## Quick Reference: Mermaid Diagram Format
+
+**Basic structure for adding diagrams to Confluence:**
+
+```html
+<ac:structured-macro ac:name="html">
+  <ac:plain-text-body><![CDATA[
+  <div class="mermaid">
+  sequenceDiagram
+      participant A
+      participant B
+      A->>B: Message
+      B-->>A: Response
+  </div>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+  ]]></ac:plain-text-body>
+</ac:structured-macro>
+```
+
+**Available themes:** `default`, `neutral`, `dark`, `forest`
+
+**Test diagrams here:** https://mermaid.live
 
 ## Support
 
@@ -411,9 +628,11 @@ git push
 - Review Next.js documentation: https://nextjs.org/docs
 - Jira API docs: https://developer.atlassian.com/cloud/jira/platform/rest/v3/
 - Confluence API docs: https://developer.atlassian.com/cloud/confluence/rest/v2/
+- Mermaid documentation: https://mermaid.js.org/intro/
+- HTML Macro plugin: https://marketplace.atlassian.com/apps/1229863/html-macro-for-confluence-cloud
 
 ---
 
 **Deployment Complete!**
 
-Your Jira & Confluence API is now running and integrated with Custom GPT.
+Your Jira & Confluence API is now running and integrated with Custom GPT, with full Mermaid diagram support!
