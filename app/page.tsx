@@ -1104,6 +1104,292 @@ export default function Home() {
         </p>
       </section>
 
+      <section style={{
+        backgroundColor: '#f0f9ff',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem',
+        border: '2px solid #3b82f6'
+      }}>
+        <h2 style={{ marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          🎓 Học AI cho Business Analyst
+        </h2>
+        <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#1e40af', marginBottom: '1rem' }}>
+          Khoá học ứng dụng AI trong công việc Business Analyst
+        </p>
+        <p>
+          Bạn đang làm BA/PO và muốn ứng dụng AI để tăng năng suất công việc? Khóa học tại{' '}
+          <a href="https://ai4ba.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', fontWeight: 'bold' }}>
+            ai4ba.com
+          </a>
+          {' '}sẽ giúp bạn:
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          marginTop: '1.5rem',
+          marginBottom: '1.5rem'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #dbeafe'
+          }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#1e40af' }}>📚 Nội dung học</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+              <li>Wireframe & Prototype với AI</li>
+              <li>Viết tài liệu kỹ thuật (SRS, BRD, PRD)</li>
+              <li>Thiết kế diagram (ERD, Sequence, Activity)</li>
+              <li>Tạo Use Case & User Story</li>
+              <li>Generate Test Cases</li>
+              <li>Viết SQL queries</li>
+            </ul>
+          </div>
+
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #dbeafe'
+          }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#1e40af' }}>⚡ Lợi ích</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+              <li><strong>12 giờ</strong> video + 1 hour Q&A + 1-1 call</li>
+              <li><strong>3 tháng</strong> support từ mentor</li>
+              <li>Bonus: Template pack & AI prompt library</li>
+              <li>Access premium tool: TestGenAI</li>
+              <li>Tiết kiệm thời gian: <strong>Vài ngày → 4 giờ</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#dbeafe',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          textAlign: 'center',
+          borderLeft: '4px solid #3b82f6'
+        }}>
+          <p style={{ margin: '0 0 1rem 0', fontSize: '1.1rem', fontWeight: 'bold' }}>
+            💰 Học phí: <span style={{ color: '#dc2626' }}>2,500,000 VND</span>
+          </p>
+          <p style={{ margin: '0 0 1rem 0' }}>
+            👨‍🏫 Giảng viên: <strong>Phan Minh Hoàng</strong> - 8+ năm kinh nghiệm phát triển phần mềm, 2+ năm ứng dụng AI trong BA
+          </p>
+          <div style={{ marginTop: '1.5rem' }}>
+            <a
+              href="https://ai4ba.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                padding: '1rem 2rem',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '0.5rem',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                transition: 'background-color 0.2s'
+              }}
+            >
+              🚀 Tìm hiểu khóa học ngay
+            </a>
+          </div>
+          <p style={{ margin: '1rem 0 0 0', fontSize: '0.9rem', color: '#666' }}>
+            📧 Email: hoangpm.work@gmail.com | 📱 Phone/Zalo: 0326562797
+          </p>
+        </div>
+      </section>
+
+      <section style={{
+        backgroundColor: '#fef3c7',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem',
+        border: '2px solid #f59e0b'
+      }}>
+        <h2 style={{ marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          🗣️ Học Tiếng Anh Giao Tiếp 1-1
+        </h2>
+        <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#92400e', marginBottom: '1rem' }}>
+          Enrich English - Luyện giao tiếp tiếng Anh online với giáo viên Philippines
+        </p>
+        <p>
+          Bạn muốn cải thiện kỹ năng giao tiếp tiếng Anh? Enrich English cung cấp khóa học 1-1 qua Skype/Google Meet với giáo viên người Philippines bản xứ.
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          marginTop: '1.5rem',
+          marginBottom: '1.5rem'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #fef3c7'
+          }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#92400e' }}>✨ Đặc điểm nổi bật</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+              <li>Học 1-1 với giáo viên Philippines</li>
+              <li>Lịch học linh hoạt (2-4 buổi/tuần)</li>
+              <li>50 phút/buổi học</li>
+              <li>Tự chọn giáo viên phù hợp</li>
+              <li>Miễn phí buổi học thử 25 phút</li>
+              <li>Được bù buổi học khi vắng</li>
+            </ul>
+          </div>
+
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #fef3c7'
+          }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#92400e' }}>🎯 Phù hợp với</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+              <li>Dân văn phòng cần giao tiếp công việc</li>
+              <li>IT cần tiếng Anh chuyên ngành</li>
+              <li>Người chuẩn bị phỏng vấn việc làm</li>
+              <li>Trẻ em 5-12 tuổi</li>
+              <li>Ai không có thời gian đến lớp truyền thống</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#fef3c7',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          textAlign: 'center',
+          borderLeft: '4px solid #f59e0b'
+        }}>
+          <p style={{ margin: '0 0 1rem 0', fontSize: '1.1rem', fontWeight: 'bold' }}>
+            💰 Học phí từ: <span style={{ color: '#dc2626' }}>155,000 - 179,000 VND/buổi</span>
+          </p>
+          <p style={{ margin: '0 0 1rem 0' }}>
+            📦 Các gói: <strong>16 buổi</strong> | <strong>32 buổi (phổ biến)</strong> | <strong>52 buổi (tiết kiệm nhất)</strong>
+          </p>
+          <p style={{ margin: '0 0 1.5rem 0', fontSize: '0.95rem', fontStyle: 'italic' }}>
+            ⚡ Đạt giao tiếp thành thạo chỉ sau <strong>34-48 giờ</strong> học
+          </p>
+          <div style={{ marginTop: '1.5rem' }}>
+            <a
+              href="https://enrichenglish.net/pricing"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                padding: '1rem 2rem',
+                backgroundColor: '#f59e0b',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '0.5rem',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                transition: 'background-color 0.2s'
+              }}
+            >
+              🎁 Xem gói học & Đăng ký học thử
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section style={{
+        backgroundColor: '#f0fdf4',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem',
+        border: '2px solid #10b981'
+      }}>
+        <h2 style={{ marginTop: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          🧪 TestGenAI - Tự động tạo Test Case bằng AI
+        </h2>
+        <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#065f46', marginBottom: '1rem' }}>
+          Chuyển đổi requirements thành test cases chỉ trong vài phút
+        </p>
+        <p>
+          TestGenAI là nền tảng AI chuyên biệt giúp QA/Tester tự động tạo test cases từ tài liệu yêu cầu, tiết kiệm thời gian và nâng cao chất lượng kiểm thử.
+        </p>
+
+        <div style={{
+          display: 'grid',
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          marginTop: '1.5rem',
+          marginBottom: '1.5rem'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #d1fae5'
+          }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#065f46' }}>✨ Tính năng chính</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+              <li>AI tạo test cases tự động (90% độ chính xác)</li>
+              <li>Workflow có cấu trúc: Requirements → Test Cases</li>
+              <li>Version control tích hợp</li>
+              <li>Tùy chỉnh tone, loại test case, methodology</li>
+              <li>Export Excel, CSV, JSON</li>
+              <li>Tích hợp Jira, TestRail (coming soon)</li>
+            </ul>
+          </div>
+
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #d1fae5'
+          }}>
+            <h3 style={{ marginTop: 0, fontSize: '1.1rem', color: '#065f46' }}>🎯 Lợi ích</h3>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+              <li><strong>Tiết kiệm thời gian:</strong> Vài ngày → Vài phút</li>
+              <li><strong>Coverage tốt hơn:</strong> 95% vs 60% manual</li>
+              <li><strong>Chi phí thấp hơn</strong> so với manual testing</li>
+              <li><strong>Chuẩn hóa:</strong> Test cases đồng nhất</li>
+              <li><strong>Không cần setup</strong> phức tạp</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style={{
+          backgroundColor: '#d1fae5',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          textAlign: 'center',
+          borderLeft: '4px solid #10b981'
+        }}>
+          <div>
+            <a
+              href="https://testgenai.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                padding: '1rem 2rem',
+                backgroundColor: '#10b981',
+                color: 'white',
+                textDecoration: 'none',
+                borderRadius: '0.5rem',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                transition: 'background-color 0.2s'
+              }}
+            >
+              🎯 Trải nghiệm TestGenAI ngay
+            </a>
+          </div>
+        </div>
+      </section>
+
       <footer style={{
         marginTop: '3rem',
         paddingTop: '2rem',

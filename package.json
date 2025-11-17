@@ -1,7 +1,8 @@
 {
   "name": "jira-confluence-nextjs",
   "version": "1.0.0",
-  "description": "Jira & Confluence API for Custom GPT - Next.js Implementation",
+  "description": "Next.js API middleware for Custom GPT integration with Jira & Confluence. AI-powered project management and documentation.",
+  "homepage": "https://atlassian.ai4ba.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

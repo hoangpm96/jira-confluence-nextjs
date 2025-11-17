@@ -1,5 +1,13 @@
 # Jira & Confluence API - Next.js Implementation
 
+Next.js API middleware for Custom GPT integration with Jira & Confluence. AI-powered project management and documentation.
+
+📚 **[Complete Setup Guide & Documentation](https://atlassian.ai4ba.com/)**
+
+> Visit **https://atlassian.ai4ba.com/** for the full interactive setup guide with screenshots and step-by-step instructions.
+
+---
+
 Middleware API built with **Next.js 15** to integrate Custom GPT with Jira and Confluence. This is a 1:1 conversion from the original FastAPI (Python) implementation.
 
 ## Architecture
