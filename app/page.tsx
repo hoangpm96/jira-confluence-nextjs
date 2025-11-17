@@ -55,6 +55,106 @@ export default function Home() {
       </section>
 
       <section style={{
+        backgroundColor: '#fff7ed',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem',
+        border: '2px solid #f97316'
+      }}>
+        <h2 style={{ marginTop: 0 }}>🎬 See It In Action</h2>
+        <p style={{ marginBottom: '1.5rem' }}>
+          Here&apos;s a complete workflow showing how you can use the Custom GPT to create user stories, add them to Jira, and generate Confluence documentation with Mermaid diagrams:
+        </p>
+
+        <div style={{ marginBottom: '2rem' }}>
+          <h3 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>
+            1️⃣ Input Requirements → Generate User Stories
+          </h3>
+          <div style={{
+            border: '1px solid #e5e7eb',
+            borderRadius: '0.5rem',
+            overflow: 'hidden',
+            marginBottom: '0.5rem'
+          }}>
+            <img
+              src="/01.input-and-create-user-stories.png"
+              alt="GPT interface showing user input for creating user stories with Vietnamese text"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block'
+              }}
+            />
+          </div>
+          <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+            Simply describe your feature in natural language and the GPT generates structured user stories with all necessary fields (Summary, Description, Acceptance Criteria, Story Points, Priority, Labels).
+          </p>
+        </div>
+
+        <div style={{ marginBottom: '2rem' }}>
+          <h3 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>
+            2️⃣ Create Jira Tickets → Generate Confluence Documentation
+          </h3>
+          <div style={{
+            border: '1px solid #e5e7eb',
+            borderRadius: '0.5rem',
+            overflow: 'hidden',
+            marginBottom: '0.5rem'
+          }}>
+            <img
+              src="/03.create-confluence-page-and-link-tickets.png"
+              alt="Dashboard showing created Jira tickets and prompt to create Confluence page"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block'
+              }}
+            />
+          </div>
+          <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+            After creating the Jira tickets, the GPT can automatically generate a Confluence page that links all related tickets and includes the necessary documentation.
+          </p>
+        </div>
+
+        <div style={{ marginBottom: 0 }}>
+          <h3 style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>
+            3️⃣ Final Result: Confluence Page with Mermaid Diagram
+          </h3>
+          <div style={{
+            border: '1px solid #e5e7eb',
+            borderRadius: '0.5rem',
+            overflow: 'hidden',
+            marginBottom: '0.5rem'
+          }}>
+            <img
+              src="/04.result-page.png"
+              alt="Confluence page showing table of user stories with links and rendered Mermaid sequence diagram"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block'
+              }}
+            />
+          </div>
+          <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+            The final Confluence page includes a table summarizing all user stories with direct links to Jira tickets, plus a fully rendered Mermaid sequence diagram visualizing the workflow.
+          </p>
+        </div>
+
+        <div style={{
+          backgroundColor: '#fed7aa',
+          padding: '1rem',
+          borderRadius: '0.5rem',
+          marginTop: '1.5rem',
+          borderLeft: '4px solid #f97316'
+        }}>
+          <p style={{ margin: 0, fontSize: '0.9rem' }}>
+            <strong>⚡ Time saved:</strong> What used to take hours of manual work (creating tickets, writing documentation, drawing diagrams) now takes just a few minutes with natural language prompts!
+          </p>
+        </div>
+      </section>
+
+      <section style={{
         backgroundColor: '#f9fafb',
         padding: '2rem',
         borderRadius: '0.5rem',
@@ -716,6 +816,23 @@ export default function Home() {
                     <strong>Code Interpreter:</strong> ✅ Recommended - Helps with processing data and formatting responses
                   </li>
                 </ul>
+                <div style={{
+                  backgroundColor: '#dbeafe',
+                  padding: '1rem',
+                  borderRadius: '0.5rem',
+                  marginTop: '1rem',
+                  borderLeft: '4px solid #3b82f6'
+                }}>
+                  <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                    🎨 Enable Mermaid Diagram Support
+                  </p>
+                  <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem' }}>
+                    <strong>✅ IMPORTANT:</strong> Enable <strong>&quot;Code Interpreter&quot;</strong> to allow your GPT to create and render Mermaid diagrams (ERD, Sequence, Activity, Flowchart, etc.) directly in Confluence pages.
+                  </p>
+                  <p style={{ margin: '0', fontSize: '0.8rem', color: '#666' }}>
+                    💡 With Code Interpreter enabled, you can ask: &quot;Thêm sequence diagram cho luồng thanh toán vào page này&quot; and the GPT will generate proper Mermaid syntax that Confluence can render.
+                  </p>
+                </div>
                 <p style={{ margin: '0.75rem 0 0 0', fontSize: '0.8rem', color: '#666' }}>
                   💡 <strong>Suggestion:</strong> Enable &quot;Code Interpreter&quot; only, disable the others to keep the GPT focused on Jira/Confluence tasks.
                 </p>
@@ -928,6 +1045,92 @@ export default function Home() {
               </div>
             </li>
           </ol>
+        </div>
+
+        <h3>Step 4.5: Install HTML Macro Plugin for Mermaid Diagrams (Optional but Recommended)</h3>
+        <div style={{
+          backgroundColor: '#f0fdf4',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem',
+          border: '2px solid #10b981'
+        }}>
+          <div style={{
+            backgroundColor: '#d1fae5',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginBottom: '1rem',
+            borderLeft: '4px solid #10b981'
+          }}>
+            <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 'bold' }}>
+              🎨 Why this is needed: To use Mermaid diagrams (ERD, Sequence, Activity, Flowchart) in Confluence, you must install an HTML Macro plugin.
+            </p>
+          </div>
+
+          <h4 style={{ marginTop: 0 }}>Recommended: HTML Macro for Confluence Cloud by Narva Software</h4>
+          <ol>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Go to Atlassian Marketplace:</strong>
+              <br />
+              <a href="https://marketplace.atlassian.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>
+                https://marketplace.atlassian.com
+              </a>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Search for &quot;HTML Macro for Confluence Cloud&quot;</strong> in the search bar
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Select the plugin by Narva Software</strong> from the search results
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Click &quot;Get it now&quot; or &quot;Try it free&quot;</strong>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Select your Confluence site</strong> from the dropdown
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Click &quot;Install&quot;</strong> and approve the permissions
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Wait for installation</strong> to complete (usually 30 seconds)
+            </li>
+            <li style={{ marginBottom: 0 }}>
+              <strong>Verify installation:</strong>
+              <ul style={{ marginTop: '0.5rem' }}>
+                <li>Go to your Confluence site</li>
+                <li>Click <strong>Settings</strong> (⚙️ icon) → <strong>Manage apps</strong></li>
+                <li>Search for &quot;HTML Macro&quot;</li>
+                <li>Ensure status is &quot;Enabled&quot;</li>
+              </ul>
+            </li>
+          </ol>
+
+          <div style={{
+            backgroundColor: '#fef3c7',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginTop: '1.5rem',
+            borderLeft: '4px solid #f59e0b'
+          }}>
+            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+              🔄 Alternative Options
+            </p>
+            <p style={{ margin: 0, fontSize: '0.875rem' }}>
+              You can use any HTML Macro plugin from the Atlassian Marketplace that supports HTML embedding. Search for &quot;HTML Macro&quot; in the marketplace and choose one that fits your needs. The installation steps are similar for all plugins.
+            </p>
+          </div>
+
+          <div style={{
+            backgroundColor: '#dbeafe',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginTop: '1.5rem',
+            borderLeft: '4px solid #3b82f6'
+          }}>
+            <p style={{ margin: 0, fontSize: '0.875rem' }}>
+              <strong>📚 Why this works:</strong> Confluence Cloud blocks raw HTML/JavaScript for security. The HTML Macro plugin provides a secure way to embed HTML content, which is required for rendering Mermaid diagrams with the CDN script.
+            </p>
+          </div>
         </div>
 
         <h3>Step 5: Test Your Custom GPT</h3>

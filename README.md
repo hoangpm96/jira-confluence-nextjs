@@ -10,6 +10,32 @@ Next.js API middleware for Custom GPT integration with Jira & Confluence. AI-pow
 
 Middleware API built with **Next.js 15** to integrate Custom GPT with Jira and Confluence. This is a 1:1 conversion from the original FastAPI (Python) implementation.
 
+## 🎬 See It In Action
+
+Here's a complete workflow showing how you can use the Custom GPT to create user stories, add them to Jira, and generate Confluence documentation with Mermaid diagrams:
+
+### 1️⃣ Input Requirements → Generate User Stories
+
+<img src="./public/01.input-and-create-user-stories.png" alt="GPT interface showing user input for creating user stories" width="800" />
+
+Simply describe your feature in natural language and the GPT generates structured user stories with all necessary fields (Summary, Description, Acceptance Criteria, Story Points, Priority, Labels).
+
+### 2️⃣ Create Jira Tickets → Generate Confluence Documentation
+
+<img src="./public/03.create-confluence-page-and-link-tickets.png" alt="Dashboard showing created Jira tickets and prompt to create Confluence page" width="800" />
+
+After creating the Jira tickets, the GPT can automatically generate a Confluence page that links all related tickets and includes the necessary documentation.
+
+### 3️⃣ Final Result: Confluence Page with Mermaid Diagram
+
+<img src="./public/04.result-page.png" alt="Confluence page showing table of user stories with links and rendered Mermaid sequence diagram" width="800" />
+
+The final Confluence page includes a table summarizing all user stories with direct links to Jira tickets, plus a fully rendered Mermaid sequence diagram visualizing the workflow.
+
+**⚡ Time saved:** What used to take hours of manual work (creating tickets, writing documentation, drawing diagrams) now takes just a few minutes with natural language prompts!
+
+---
+
 ## Architecture
 
 ```
