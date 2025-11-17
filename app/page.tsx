@@ -1,22 +1,838 @@
+import Link from 'next/link';
+import EnvVarsForm from './EnvVarsForm';
+
 export default function Home() {
   return (
-    <div style={{ padding: '2rem', fontFamily: 'system-ui' }}>
-      <h1>Jira & Confluence API</h1>
-      <p>Middleware API for Custom GPT Integration</p>
+    <div style={{
+      maxWidth: '1000px',
+      margin: '0 auto',
+      padding: '2rem',
+      fontFamily: 'system-ui',
+      lineHeight: '1.6'
+    }}>
+      <header style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>
+          Jira & Confluence Custom GPT
+        </h1>
+        <p style={{ fontSize: '1.2rem', color: '#666' }}>
+          Connect ChatGPT with your Atlassian workspace
+        </p>
+        <div style={{
+          display: 'inline-block',
+          padding: '0.5rem 1rem',
+          backgroundColor: '#10b981',
+          color: 'white',
+          borderRadius: '0.5rem',
+          marginTop: '1rem'
+        }}>
+          ✓ Service Running
+        </div>
+      </header>
 
-      <h2>Status</h2>
-      <p>Running</p>
+      <section style={{
+        backgroundColor: '#f0f9ff',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem'
+      }}>
+        <h2 style={{ marginTop: 0 }}>📋 What is This?</h2>
+        <p>
+          This service allows you to use ChatGPT to interact with your Jira and Confluence workspaces
+          using natural language. No coding required! Just talk to ChatGPT like you would to a colleague.
+        </p>
+        <p style={{ marginBottom: 0 }}>
+          <strong>Examples of what you can do:</strong>
+        </p>
+        <ul>
+          <li>&quot;List all my Jira projects&quot;</li>
+          <li>&quot;Create a user story for login feature&quot;</li>
+          <li>&quot;Find Confluence pages about API documentation&quot;</li>
+          <li>&quot;Add a sequence diagram to the payment flow page&quot;</li>
+        </ul>
+      </section>
 
-      <h2>Available Endpoints</h2>
-      <ul>
-        <li><code>/api/health</code> - Health check</li>
-        <li><code>/api/confluence/*</code> - Confluence endpoints</li>
-        <li><code>/api/jira/*</code> - Jira endpoints</li>
-        <li><code>/api/workflow/*</code> - Combined workflow endpoints</li>
-      </ul>
+      <section style={{
+        backgroundColor: '#f9fafb',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem',
+        border: '1px solid #e5e7eb'
+      }}>
+        <h2 style={{ marginTop: 0 }}>🏗️ How It Works</h2>
+        <p style={{ marginBottom: '1rem' }}>Here&apos;s the architecture of how Custom GPT communicates with your Atlassian workspace:</p>
+        <pre style={{
+          backgroundColor: '#1f2937',
+          color: '#f3f4f6',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          overflow: 'auto',
+          fontSize: '0.875rem',
+          lineHeight: '1.5',
+          fontFamily: 'monospace'
+        }}>
+{`┌─────────────────┐
+│   Custom GPT    │  ← You chat using natural language
+└────────┬────────┘
+         │ JSON over HTTPS
+         │ Header: X-API-Key
+         ▼
+┌─────────────────┐
+│  Middleware API │  ← Next.js API on Vercel
+│                 │
+│  ┌───────────┐  │
+│  │ Endpoints │  │
+│  └─────┬─────┘  │
+│        │        │
+│  ┌─────▼──────┐ │
+│  │  Services  │ │  ← Business logic
+│  └─────┬──────┘ │
+└────────┼────────┘
+         │
+    ┌────▼─────┐
+    │ Atlassian│
+    │   APIs   │
+    └──────────┘`}
+        </pre>
+        <div style={{
+          backgroundColor: '#dbeafe',
+          padding: '1rem',
+          borderRadius: '0.5rem',
+          marginTop: '1rem',
+          borderLeft: '4px solid #3b82f6'
+        }}>
+          <p style={{ margin: 0, fontSize: '0.9rem' }}>
+            <strong>🔒 Security:</strong> Your API key (X-API-Key header) ensures only your Custom GPT can access your middleware.
+            The middleware then securely communicates with Atlassian using your API token.
+          </p>
+        </div>
+      </section>
 
-      <h2>Documentation</h2>
-      <p>See README.md for complete API documentation</p>
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>🚀 Complete Setup Guide</h2>
+
+        <div style={{
+          backgroundColor: '#fef3c7',
+          padding: '1rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem',
+          borderLeft: '4px solid #f59e0b'
+        }}>
+          <strong>⚠️ Prerequisites:</strong>
+          <ul style={{ marginTop: '0.5rem', marginBottom: 0 }}>
+            <li>A GitHub account (free - we&apos;ll show you how to create one)</li>
+            <li>A ChatGPT Plus or Team subscription (required to create Custom GPTs)</li>
+            <li>Access to Jira and/or Confluence (with permission to create API tokens)</li>
+          </ul>
+        </div>
+
+        <h3 style={{ marginTop: '2rem' }}>Step 0: Create a GitHub Account (If You Don&apos;t Have One)</h3>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem'
+        }}>
+          <p><strong>Already have a GitHub account?</strong> Skip to Step 1.</p>
+          <p>
+            <strong>New to GitHub?</strong> It&apos;s free and easy! Visit{' '}
+            <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>
+              github.com/signup
+            </a>
+            {' '}and follow the prompts to create an account with your email, password, and username. You&apos;ll need to verify your email address.
+          </p>
+          <div style={{
+            backgroundColor: '#dbeafe',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginTop: '1rem',
+            borderLeft: '4px solid #3b82f6'
+          }}>
+            <strong>✅ Once done,</strong> proceed to Step 1 below.
+          </div>
+        </div>
+
+        <h3 style={{ marginTop: '2rem' }}>Step 1: Fork the GitHub Repository</h3>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem'
+        }}>
+          <p><strong>Why fork?</strong> Forking creates your own copy of the project that you can deploy and customize.</p>
+
+          <h4>📸 Detailed Instructions:</h4>
+          <ol>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Go to the GitHub repository:</strong>
+              <br />
+              <a href="https://github.com/hoangpm96/jira-confluence-nextjs" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>
+                https://github.com/hoangpm96/jira-confluence-nextjs
+              </a>
+            </li>
+
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Click the &quot;Fork&quot; button</strong> in the top-right corner of the page
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                (It&apos;s next to the &quot;Star&quot; button)
+              </span>
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="/fork-jira-confluence-nextjs.png"
+                  alt="GitHub Fork button highlighted in red circle"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            </li>
+
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>On the &quot;Create a new fork&quot; page:</strong>
+              <ul style={{ marginTop: '0.5rem' }}>
+                <li>Keep the repository name as <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>jira-confluence-nextjs</code> (or rename if you want)</li>
+                <li>Add a description (optional): &quot;My Jira & Confluence Custom GPT&quot;</li>
+                <li>Make sure &quot;Copy the main branch only&quot; is checked</li>
+              </ul>
+            </li>
+
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Click the green &quot;Create fork&quot; button</strong>
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="/create-fork.png"
+                  alt="Create fork button highlighted"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            </li>
+
+            <li style={{ marginBottom: 0 }}>
+              <strong>Wait a few seconds</strong> - GitHub will create your fork and redirect you to your new repository
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                Your repository URL will be: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>github.com/YOUR-USERNAME/jira-confluence-nextjs</code>
+              </span>
+            </li>
+          </ol>
+
+          <div style={{
+            backgroundColor: '#dbeafe',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginTop: '1.5rem',
+            borderLeft: '4px solid #3b82f6'
+          }}>
+            <strong>✅ Success!</strong> You now have your own copy of the project. Keep this browser tab open - you&apos;ll need it for deployment.
+          </div>
+        </div>
+
+        <h3 style={{ marginTop: '2rem' }}>Step 2: Get Your Atlassian Credentials</h3>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem'
+        }}>
+          <p><strong>You need 3 pieces of information:</strong></p>
+          <ul style={{ marginBottom: '1.5rem' }}>
+            <li>Your Atlassian domain (e.g., yourcompany.atlassian.net)</li>
+            <li>Your email address (the one you use to login to Jira/Confluence)</li>
+            <li>An API token (we&apos;ll create this now)</li>
+          </ul>
+
+          <h4>📸 Creating Your API Token:</h4>
+          <ol>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Go to Atlassian API Tokens page:</strong>
+              <br />
+              <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>
+                https://id.atlassian.com/manage-profile/security/api-tokens
+              </a>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                (You&apos;ll need to login with your Atlassian account)
+              </span>
+            </li>
+
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Choose how to create your API token:</strong>
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="/create-key-atlassian.png"
+                  alt="Create API token buttons highlighted"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+              <div style={{
+                backgroundColor: '#fef3c7',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                borderLeft: '4px solid #f59e0b'
+              }}>
+                <p style={{ margin: '0 0 0.5rem 0' }}><strong>Two options available:</strong></p>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>&quot;Create API token&quot;</strong> - Grants full access to all Jira and Confluence resources.
+                    <br />
+                    <span style={{ fontSize: '0.9rem', color: '#666' }}>✅ Recommended for simplicity and full functionality</span>
+                  </li>
+                  <li style={{ marginBottom: 0 }}>
+                    <strong>&quot;Create API token with scopes&quot;</strong> - Allows you to limit permissions to specific resources.
+                    <br />
+                    <span style={{ fontSize: '0.9rem', color: '#666' }}>⚠️ Advanced option - use only if you need restricted access</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Fill in the token details:</strong>
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden',
+                maxWidth: '100%'
+              }}>
+                <img
+                  src="/create-api-key-atlassian.png"
+                  alt="Create API token dialog with name and expiration fields"
+                  style={{
+                    width: '100%',
+                    maxWidth: '500px',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+              <ul style={{ marginTop: '0.75rem' }}>
+                <li style={{ marginBottom: '0.5rem' }}>
+                  <strong>Name:</strong> Enter a descriptive name like{' '}
+                  <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+                    ChatGPT Integration
+                  </code>
+                  {' '}or{' '}
+                  <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+                    GPT Confluence Writer
+                  </code>
+                  <br />
+                  <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                    This helps you identify what this token is used for
+                  </span>
+                </li>
+                <li style={{ marginBottom: 0 }}>
+                  <strong>Expires on:</strong> Set an expiration date (maximum 1 year from now)
+                  <br />
+                  <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                    For security, tokens can last no longer than a year. Choose a date that works for you.
+                  </span>
+                </li>
+              </ul>
+              <p style={{ marginTop: '0.75rem', marginBottom: 0 }}>
+                <strong>Then click the blue &quot;Create&quot; button</strong> at the bottom right.
+              </p>
+            </li>
+
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Copy your API token immediately!</strong>
+              <div style={{
+                backgroundColor: '#fee2e2',
+                padding: '0.75rem',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                borderLeft: '4px solid #ef4444'
+              }}>
+                ⚠️ <strong>Important:</strong> You won&apos;t be able to see this token again! Copy it now and save it somewhere safe (like a password manager or notes app).
+              </div>
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden',
+                maxWidth: '100%'
+              }}>
+                <img
+                  src="/copy-api-key-atlassian.png"
+                  alt="Copy API token dialog with Copy button highlighted"
+                  style={{
+                    width: '100%',
+                    maxWidth: '500px',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem', marginBottom: 0 }}>
+                Click the &quot;Copy&quot; button to copy your token to the clipboard, then save it somewhere secure.
+              </p>
+            </li>
+
+            <li style={{ marginBottom: '0' }}>
+              <strong>Note your Atlassian domain:</strong>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>
+                This is the URL you use to access Jira/Confluence. For example:
+              </span>
+              <ul style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                <li>If you access Jira at <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://mycompany.atlassian.net/jira</code></li>
+                <li>Your domain is: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>mycompany.atlassian.net</code></li>
+              </ul>
+            </li>
+          </ol>
+
+          <div style={{
+            backgroundColor: '#dbeafe',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginTop: '1.5rem',
+            borderLeft: '4px solid #3b82f6'
+          }}>
+            <strong>💡 Pro Tip:</strong> You can use the same API token for both Jira and Confluence if they&apos;re in the same Atlassian organization.
+          </div>
+        </div>
+
+        <h3>Step 3: Deploy to Vercel (Free & Easy)</h3>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem'
+        }}>
+          <p><strong>Vercel provides free hosting for Next.js apps - perfect for this project!</strong></p>
+
+          <h4>📸 Deployment Steps:</h4>
+          <ol>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Go to Vercel and sign up:</strong> <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>vercel.com</a>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>Create an account (you can use GitHub, GitLab, Bitbucket, Google, or email).</span>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Create new project:</strong> Click &quot;Add New...&quot; → &quot;Project&quot;
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden',
+                maxWidth: '100%'
+              }}>
+                <img
+                  src="/add-vercel-project.png"
+                  alt="Add New dropdown menu with Project option highlighted"
+                  style={{
+                    width: '100%',
+                    maxWidth: '400px',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Connect to GitHub:</strong> Click &quot;Continue with GitHub&quot; to connect your GitHub account
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="/vercel-connect-github.png"
+                  alt="Vercel Git provider selection with Continue with GitHub highlighted"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Install GitHub app on Vercel:</strong> If you haven&apos;t connected GitHub to Vercel before, you&apos;ll need to install the GitHub application. Click &quot;Install&quot; to proceed.
+              <div style={{
+                backgroundColor: '#fef3c7',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                borderLeft: '4px solid #f59e0b'
+              }}>
+                <p style={{ margin: '0 0 0.5rem 0' }}><strong>Choose repository access:</strong></p>
+                <div style={{
+                  marginTop: '0.5rem',
+                  marginBottom: '0.5rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  overflow: 'hidden',
+                  maxWidth: '100%'
+                }}>
+                  <img
+                    src="/vercel-github-grant.png"
+                    alt="GitHub authorization page showing repository access options and Install button"
+                    style={{
+                      width: '100%',
+                      maxWidth: '600px',
+                      height: 'auto',
+                      display: 'block'
+                    }}
+                  />
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>&quot;All repositories&quot;</strong> - Grants access to all current and future repositories (includes public repos as read-only)
+                    <br />
+                    <span style={{ fontSize: '0.9rem', color: '#666' }}>✅ Easiest option - no need to configure later</span>
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>&quot;Only select repositories&quot;</strong> - Choose specific repositories to grant access
+                    <br />
+                    <span style={{ fontSize: '0.9rem', color: '#666' }}>⚠️ If you choose this, make sure to select your <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>jira-confluence-nextjs</code> fork</span>
+                  </li>
+                  <li style={{ marginBottom: 0 }}>
+                    After selecting, click the green <strong>&quot;Install&quot;</strong> button to authorize Vercel
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Import repository:</strong> Find and click &quot;Import&quot; on your <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>jira-confluence-nextjs</code> repo
+              <div style={{
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden',
+                maxWidth: '100%'
+              }}>
+                <img
+                  src="/import-project-vercel.png"
+                  alt="Import Git Repository page with jira-confluence-nextjs and Import button highlighted"
+                  style={{
+                    width: '100%',
+                    maxWidth: '400px',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Add Environment Variables:</strong> Expand the &quot;Environment Variables&quot; section and add these 5 required variables:
+              <div style={{ backgroundColor: '#fff7ed', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', borderLeft: '4px solid #f97316', fontSize: '0.9rem' }}>
+                <p style={{ margin: '0 0 0.5rem 0', fontWeight: 'bold' }}>Required variables:</p>
+                1. <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>JIRA_URL</code> = https://your-company.atlassian.net
+                <br />2. <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>JIRA_EMAIL</code> = your@email.com
+                <br />3. <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>JIRA_API_TOKEN</code> = ATATT3xFfGF0... (from Step 2)
+                <br />4. <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>DEFAULT_SPACE_KEY</code> = ~712020... (optional - your Confluence space key)
+                <br />5. <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>API_KEY</code> = demo-api-key-123 (optional - create your own secure key)
+              </div>
+              <EnvVarsForm />
+              <div style={{
+                marginTop: '1rem',
+                border: '1px solid #e5e7eb',
+                borderRadius: '0.5rem',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src="/add-variable-and-deploy.png"
+                  alt="Environment Variables section with variables filled in and Deploy button highlighted"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'block'
+                  }}
+                />
+              </div>
+              <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem', marginBottom: 0 }}>
+                After pasting your environment variables, click the <strong>&quot;Deploy&quot;</strong> button at the bottom to start the build process.
+              </p>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Wait 2-3 minutes:</strong> Vercel will build and deploy your application. You can watch the build logs in real-time.
+            </li>
+            <li style={{ marginBottom: '0' }}>
+              <strong>Success! 🎉</strong> Copy your URL (e.g., <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>your-app.vercel.app</code>)
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Success page with URL and Visit button]</em>
+              </div>
+            </li>
+          </ol>
+          <div style={{ backgroundColor: '#dbeafe', padding: '1rem', borderRadius: '0.5rem', marginTop: '1.5rem', borderLeft: '4px solid #3b82f6' }}>
+            <strong>✅ Test:</strong> Click &quot;Visit&quot; - you should see this homepage!
+          </div>
+        </div>
+
+        <h3>Step 4: Create Your Custom GPT</h3>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem'
+        }}>
+          <h4>📸 GPT Configuration Steps:</h4>
+          <ol>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Go to GPT Editor:</strong> <a href="https://chat.openai.com/gpts/editor" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>chat.openai.com/gpts/editor</a>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>You need ChatGPT Plus or Team subscription</span>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: ChatGPT GPT editor page]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Click &quot;Create a GPT&quot;</strong> or &quot;+ Create&quot; button
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Create GPT button highlighted]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Switch to &quot;Configure&quot; tab</strong>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>Skip the &quot;Create&quot; tab - we&apos;ll configure manually</span>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Configure tab selected]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Fill in basic information:</strong>
+              <ul style={{ marginTop: '0.5rem' }}>
+                <li><strong>Name:</strong> <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>Jira & Confluence Assistant</code></li>
+                <li><strong>Description:</strong> <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>Manage Jira issues and Confluence pages using natural language</code></li>
+                <li><strong>Instructions:</strong> Copy from <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>CUSTOM_GPT_INSTRUCTIONS.md</code> in the repo</li>
+              </ul>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Configure page with name, description, and instructions filled]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Scroll down to &quot;Actions&quot; section</strong>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>Click &quot;Create new action&quot; button</span>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Actions section with Create new action button]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Import OpenAPI schema:</strong>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>You have 2 options:</span>
+              <ul style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+                <li><strong>Option A:</strong> Visit <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app/api</code> and copy the JSON</li>
+                <li><strong>Option B:</strong> Use the schema from <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>OPENAPI_SCHEMA.md</code> in the GitHub repo</li>
+              </ul>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Action editor with schema pasted in]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Verify the Server URL:</strong>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>Should be: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app</code></span>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Server URL field with Vercel URL]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '1rem' }}>
+              <strong>Set Privacy Policy URL:</strong>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>Scroll down in Configure tab, find &quot;Privacy policy&quot; field</span>
+              <br />
+              <span style={{ fontSize: '0.9rem', color: '#666' }}>Enter: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app/privacy</code></span>
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Privacy policy field filled in]</em>
+              </div>
+            </li>
+            <li style={{ marginBottom: '0' }}>
+              <strong>Save your GPT:</strong> Click &quot;Save&quot; or &quot;Update&quot; in the top-right
+              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
+                📸 <em>[Screenshot: Save button highlighted]</em>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <h3>Step 5: Test Your Custom GPT</h3>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          marginBottom: '2rem'
+        }}>
+          <p>Try these commands to test if everything works:</p>
+          <ol>
+            <li>&quot;List all my Jira projects&quot;</li>
+            <li>&quot;What Confluence spaces do I have?&quot;</li>
+            <li>&quot;Show me recent Jira issues&quot;</li>
+          </ol>
+          <p style={{ marginBottom: 0 }}>
+            If you get errors, check that your environment variables are set correctly and that your API tokens have the right permissions.
+          </p>
+        </div>
+      </section>
+
+      <section style={{
+        backgroundColor: '#f0fdf4',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem'
+      }}>
+        <h2 style={{ marginTop: 0 }}>✨ Example Use Cases</h2>
+
+        <h3>For Project Managers:</h3>
+        <ul>
+          <li>&quot;Create 5 user stories for the authentication module&quot;</li>
+          <li>&quot;Show me all open bugs in the mobile project&quot;</li>
+          <li>&quot;Add a comment to PROJ-123 asking for status update&quot;</li>
+        </ul>
+
+        <h3>For Developers:</h3>
+        <ul>
+          <li>&quot;Create a technical spec page in Confluence for the payment API&quot;</li>
+          <li>&quot;Add a sequence diagram showing the login flow&quot;</li>
+          <li>&quot;Search for pages about database architecture&quot;</li>
+        </ul>
+
+        <h3>For Team Leads:</h3>
+        <ul style={{ marginBottom: 0 }}>
+          <li>&quot;Bulk create user stories from this feature list&quot;</li>
+          <li>&quot;Update the sprint planning page with today&apos;s decisions&quot;</li>
+          <li>&quot;Generate a technical document from these Jira stories&quot;</li>
+        </ul>
+      </section>
+
+      <section style={{ marginBottom: '2rem' }}>
+        <h2>🔧 Troubleshooting</h2>
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          borderRadius: '0.5rem'
+        }}>
+          <h3>Common Issues:</h3>
+
+          <h4>❌ &quot;Authentication failed&quot;</h4>
+          <ul>
+            <li>Check that your API tokens are correct</li>
+            <li>Verify your email address matches your Atlassian account</li>
+            <li>Make sure the tokens haven&apos;t expired</li>
+          </ul>
+
+          <h4>❌ &quot;Cannot find project&quot;</h4>
+          <ul>
+            <li>Verify you have access to the project in Jira</li>
+            <li>Use the exact project key (e.g., PROJ, not Project Name)</li>
+          </ul>
+
+          <h4>❌ &quot;Service not responding&quot;</h4>
+          <ul>
+            <li>Check if your deployment is running (visit your deployment URL)</li>
+            <li>Look at the deployment logs in Vercel/Railway</li>
+            <li>Verify environment variables are set correctly</li>
+          </ul>
+
+          <h4>❌ &quot;Permission denied&quot;</h4>
+          <ul style={{ marginBottom: 0 }}>
+            <li>Your API token needs the right permissions</li>
+            <li>For Jira: Read/Write access to projects</li>
+            <li>For Confluence: Read/Write access to spaces</li>
+          </ul>
+        </div>
+      </section>
+
+      <section style={{
+        backgroundColor: '#fef2f2',
+        padding: '2rem',
+        borderRadius: '0.5rem',
+        marginBottom: '2rem'
+      }}>
+        <h2 style={{ marginTop: 0 }}>🔒 Security & Privacy</h2>
+        <ul>
+          <li>Your API tokens are stored securely as environment variables</li>
+          <li>This service acts as a secure bridge between ChatGPT and Atlassian</li>
+          <li>No data is permanently stored - all requests are proxied in real-time</li>
+          <li>Only you can access your Custom GPT and your data</li>
+          <li>Read our full <Link href="/privacy" style={{ color: '#0066cc' }}>Privacy Policy</Link></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>📚 Technical Documentation</h2>
+        <p>For developers who want to understand the API or contribute:</p>
+        <ul>
+          <li>
+            <strong>Health Check:</strong>{' '}
+            <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+              GET /api/health
+            </code>
+          </li>
+          <li>
+            <strong>OpenAPI Schema:</strong>{' '}
+            <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+              GET /api
+            </code>
+          </li>
+          <li>
+            <strong>Jira Endpoints:</strong>{' '}
+            <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+              /api/jira/*
+            </code>
+          </li>
+          <li>
+            <strong>Confluence Endpoints:</strong>{' '}
+            <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+              /api/confluence/*
+            </code>
+          </li>
+          <li>
+            <strong>Workflow Endpoints:</strong>{' '}
+            <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>
+              /api/workflow/*
+            </code>
+          </li>
+        </ul>
+        <p>
+          View the complete technical documentation in the GitHub repository&apos;s README file.
+        </p>
+      </section>
+
+      <footer style={{
+        marginTop: '3rem',
+        paddingTop: '2rem',
+        borderTop: '1px solid #e5e7eb',
+        textAlign: 'center',
+        color: '#666'
+      }}>
+        <p>
+          Need help? Check the GitHub repository for issues and discussions.
+        </p>
+        <p style={{ marginBottom: 0 }}>
+          Made with ❤️ for the Atlassian + ChatGPT community
+        </p>
+      </footer>
     </div>
   );
 }
