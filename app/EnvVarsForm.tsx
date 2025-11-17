@@ -11,7 +11,13 @@ export default function EnvVarsForm() {
   const [copied, setCopied] = useState(false);
 
   const generateEnvVars = () => {
-    return `JIRA_URL=${jiraUrl}
+    // Auto-add https:// to JIRA_URL if missing
+    let finalJiraUrl = jiraUrl.trim();
+    if (finalJiraUrl && !finalJiraUrl.startsWith('http://') && !finalJiraUrl.startsWith('https://')) {
+      finalJiraUrl = `https://${finalJiraUrl}`;
+    }
+
+    return `JIRA_URL=${finalJiraUrl}
 JIRA_EMAIL=${jiraEmail}
 JIRA_API_TOKEN=${jiraToken}
 DEFAULT_SPACE_KEY=${spaceKey}

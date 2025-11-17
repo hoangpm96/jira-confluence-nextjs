@@ -10,6 +10,29 @@ export class ConfluenceService {
     this.baseUrl = process.env.JIRA_URL || '';
     this.defaultSpaceKey = process.env.DEFAULT_SPACE_KEY || '';
 
+    // Validate required environment variables
+    if (!this.baseUrl) {
+      throw new Error('JIRA_URL environment variable is not set');
+    }
+    if (!process.env.JIRA_EMAIL) {
+      throw new Error('JIRA_EMAIL environment variable is not set');
+    }
+    if (!process.env.JIRA_API_TOKEN) {
+      throw new Error('JIRA_API_TOKEN environment variable is not set');
+    }
+
+    // Auto-add https:// if missing
+    if (!this.baseUrl.startsWith('http://') && !this.baseUrl.startsWith('https://')) {
+      this.baseUrl = `https://${this.baseUrl}`;
+    }
+
+    // Validate URL format
+    try {
+      new URL(this.baseUrl);
+    } catch (error) {
+      throw new Error(`Invalid JIRA_URL: ${this.baseUrl}. Must be a valid URL like https://your-domain.atlassian.net`);
+    }
+
     const auth = Buffer.from(
       `${process.env.JIRA_EMAIL}:${process.env.JIRA_API_TOKEN}`
     ).toString('base64');
