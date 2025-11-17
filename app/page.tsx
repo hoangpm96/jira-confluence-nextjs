@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import EnvVarsForm from './EnvVarsForm';
 import GPTInstructionsForm from './GPTInstructionsForm';
+import OpenAPISchemaForm from './OpenAPISchemaForm';
+import PrivacyUrlDisplay from './PrivacyUrlDisplay';
 
 export default function Home() {
   return (
@@ -624,8 +626,8 @@ export default function Home() {
               </p>
             </li>
           </ol>
-          <div style={{ backgroundColor: '#dbeafe', padding: '1rem', borderRadius: '0.5rem', marginTop: '1.5rem', borderLeft: '4px solid #3b82f6' }}>
-            <strong>✅ Test:</strong> Click &quot;Visit&quot; - you should see this homepage!
+          <div style={{ backgroundColor: '#dcfce7', padding: '1rem', borderRadius: '0.5rem', marginTop: '1.5rem', borderLeft: '4px solid #10b981' }}>
+            <strong>✅ Next Step:</strong> Click &quot;Visit&quot; or open your deployment URL in a new tab, then continue with <strong>Step 4</strong> below on that page. The forms will automatically detect your domain!
           </div>
         </div>
 
@@ -725,39 +727,204 @@ export default function Home() {
               <span style={{ fontSize: '0.9rem', color: '#666' }}>Click &quot;Create new action&quot; button</span>
             </li>
             <li style={{ marginBottom: '1rem' }}>
-              <strong>Import OpenAPI schema:</strong>
-              <br />
-              <span style={{ fontSize: '0.9rem', color: '#666' }}>You have 2 options:</span>
-              <ul style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
-                <li><strong>Option A:</strong> Visit <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app/api</code> and copy the JSON</li>
-                <li><strong>Option B:</strong> Use the schema from <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>OPENAPI_SCHEMA.md</code> in the GitHub repo</li>
-              </ul>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Action editor with schema pasted in]</em>
+              <strong>Import OpenAPI schema:</strong> Use the form below to generate the schema
+              <OpenAPISchemaForm />
+              <div style={{
+                backgroundColor: '#f9fafb',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                marginTop: '1rem',
+                border: '1px solid #e5e7eb'
+              }}>
+                <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                  📸 Step-by-step instructions:
+                </p>
+                <ol style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+                  <li style={{ marginBottom: '0.75rem' }}>
+                    <strong>Copy the generated schema URL</strong> from the form above (it looks like <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app/api/openapi</code>)
+                  </li>
+                  <li style={{ marginBottom: '0.75rem' }}>
+                    <strong>Click the settings icon (⚙️)</strong> next to the &quot;Schema&quot; field in the Actions section
+                    <div style={{
+                      marginTop: '0.5rem',
+                      border: '1px solid #e5e7eb',
+                      borderRadius: '0.5rem',
+                      overflow: 'hidden',
+                      maxWidth: '420px'
+                    }}>
+                      <img
+                        src="/add-schema.png"
+                        alt="Settings icon highlighted next to Schema field, showing where to paste the OpenAPI schema URL"
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          display: 'block'
+                        }}
+                      />
+                    </div>
+                    <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.5rem', marginBottom: 0 }}>
+                      The settings icon appears as a gear icon. Click it to open a dialog where you can paste the schema URL.
+                    </p>
+                  </li>
+                  <li style={{ marginBottom: '0.75rem' }}>
+                    <strong>Paste the schema URL</strong> into the text field that appears, then click <strong>&quot;Import&quot;</strong>
+                    <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.25rem', marginBottom: 0 }}>
+                      The URL should start with <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://</code> and end with <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>/api/openapi</code>
+                    </p>
+                  </li>
+                  <li style={{ marginBottom: 0 }}>
+                    <strong>Wait for the import to complete</strong> - ChatGPT will load all available API endpoints from your schema
+                  </li>
+                </ol>
               </div>
             </li>
             <li style={{ marginBottom: '1rem' }}>
-              <strong>Verify the Server URL:</strong>
-              <br />
-              <span style={{ fontSize: '0.9rem', color: '#666' }}>Should be: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app</code></span>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Server URL field with Vercel URL]</em>
+              <strong>Configure Authentication:</strong> Set up the API key for secure access
+              <div style={{
+                backgroundColor: '#f9fafb',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb'
+              }}>
+                <div style={{
+                  marginBottom: '1rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  overflow: 'hidden',
+                  maxWidth: '420px'
+                }}>
+                  <img
+                    src="/input-api-key.png"
+                    alt="Authentication configuration showing API Key type selected, with custom header name X-API-Key"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block'
+                    }}
+                  />
+                </div>
+                <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                  Two scenarios based on your Step 3 setup:
+                </p>
+                <div style={{
+                  backgroundColor: '#dbeafe',
+                  padding: '1rem',
+                  borderRadius: '0.5rem',
+                  marginBottom: '1rem',
+                  borderLeft: '4px solid #3b82f6'
+                }}>
+                  <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                    ✅ Option 1: If you DID NOT set API_KEY in Step 3
+                  </p>
+                  <ul style={{ margin: '0.5rem 0 0 0', paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+                    <li style={{ marginBottom: '0.5rem' }}>
+                      <strong>Authentication Type:</strong> Select <strong>&quot;None&quot;</strong>
+                    </li>
+                    <li style={{ marginBottom: 0 }}>
+                      No additional configuration needed - your API is publicly accessible
+                    </li>
+                  </ul>
+                </div>
+                <div style={{
+                  backgroundColor: '#fef3c7',
+                  padding: '1rem',
+                  borderRadius: '0.5rem',
+                  borderLeft: '4px solid #f59e0b'
+                }}>
+                  <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                    🔒 Option 2: If you DID set API_KEY in Step 3 (Recommended)
+                  </p>
+                  <ul style={{ margin: '0.5rem 0 0 0', paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+                    <li style={{ marginBottom: '0.5rem' }}>
+                      <strong>Authentication Type:</strong> Select <strong>&quot;API Key&quot;</strong>
+                    </li>
+                    <li style={{ marginBottom: '0.5rem' }}>
+                      <strong>API Key:</strong> Enter the same API_KEY value you set in Step 3 (e.g., <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>demo-api-key-123456</code>)
+                    </li>
+                    <li style={{ marginBottom: '0.5rem' }}>
+                      <strong>Auth Type:</strong> Select <strong>&quot;Custom&quot;</strong>
+                    </li>
+                    <li style={{ marginBottom: 0 }}>
+                      <strong>Custom Header Name:</strong> Enter <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>X-API-Key</code> (exactly as shown)
+                    </li>
+                  </ul>
+                </div>
+                <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.75rem', marginBottom: 0 }}>
+                  💡 <strong>Security Note:</strong> Setting an API_KEY adds a security layer to prevent unauthorized access to your middleware API. The key you enter here must match the one you set in your Vercel environment variables.
+                </p>
               </div>
             </li>
             <li style={{ marginBottom: '1rem' }}>
-              <strong>Set Privacy Policy URL:</strong>
-              <br />
-              <span style={{ fontSize: '0.9rem', color: '#666' }}>Scroll down in Configure tab, find &quot;Privacy policy&quot; field</span>
-              <br />
-              <span style={{ fontSize: '0.9rem', color: '#666' }}>Enter: <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>https://your-app.vercel.app/privacy</code></span>
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Privacy policy field filled in]</em>
+              <strong>Test your actions (Recommended):</strong> Verify the API connection works before saving
+              <div style={{
+                backgroundColor: '#f9fafb',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb'
+              }}>
+                <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.875rem' }}>
+                  Before saving your GPT, it&apos;s a good idea to test that the actions are working correctly:
+                </p>
+                <div style={{
+                  marginBottom: '1rem',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: '0.5rem',
+                  overflow: 'hidden',
+                  maxWidth: '420px'
+                }}>
+                  <img
+                    src="/call-list-pages-to-test.png"
+                    alt="Available actions list showing Test buttons next to each function like listConfluencePages"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      display: 'block'
+                    }}
+                  />
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    In the Actions section, scroll down to see the <strong>&quot;Available actions&quot;</strong> list
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    Click the <strong>&quot;Test&quot;</strong> button next to any function (e.g., <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>listConfluencePages</code>)
+                  </li>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    If the test succeeds, you&apos;ll see a response with data from your Jira/Confluence
+                  </li>
+                  <li style={{ marginBottom: 0 }}>
+                    If it fails, check your environment variables (especially <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>API_KEY</code>, <code style={{ backgroundColor: '#e5e7eb', padding: '0.2rem 0.4rem', borderRadius: '0.25rem' }}>JIRA_URL</code>, and authentication settings)
+                  </li>
+                </ul>
+                <PrivacyUrlDisplay />
               </div>
             </li>
             <li style={{ marginBottom: '0' }}>
               <strong>Save your GPT:</strong> Click &quot;Save&quot; or &quot;Update&quot; in the top-right
-              <div style={{ backgroundColor: '#e5e7eb', padding: '1rem', borderRadius: '0.5rem', marginTop: '0.5rem', border: '2px dashed #9ca3af' }}>
-                📸 <em>[Screenshot: Save button highlighted]</em>
+              <div style={{
+                backgroundColor: '#f9fafb',
+                padding: '1rem',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                border: '1px solid #e5e7eb'
+              }}>
+                <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+                  Choose who can access your GPT:
+                </p>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>
+                    <strong>&quot;Only me&quot;</strong> - Only you can access and use this GPT
+                    <br />
+                    <span style={{ fontSize: '0.8rem', color: '#666' }}>✅ Recommended for personal use and testing</span>
+                  </li>
+                  <li style={{ marginBottom: 0 }}>
+                    <strong>&quot;Anyone with the link&quot;</strong> - Anyone with the link can use your GPT
+                    <br />
+                    <span style={{ fontSize: '0.8rem', color: '#666' }}>⚠️ They will use your API credentials, so only share with trusted team members</span>
+                  </li>
+                </ul>
               </div>
             </li>
           </ol>
@@ -770,15 +937,46 @@ export default function Home() {
           borderRadius: '0.5rem',
           marginBottom: '2rem'
         }}>
-          <p>Try these commands to test if everything works:</p>
+          <h4 style={{ marginTop: 0 }}>📍 Where to access your Custom GPT:</h4>
+          <div style={{
+            backgroundColor: '#dbeafe',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginBottom: '1.5rem',
+            borderLeft: '4px solid #3b82f6'
+          }}>
+            <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.875rem', fontWeight: 'bold' }}>
+              After saving your GPT, you can access it in two ways:
+            </p>
+            <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.875rem' }}>
+              <li style={{ marginBottom: '0.5rem' }}>
+                <strong>Quick access after creation:</strong> Click the <strong>&quot;Share&quot;</strong> button in the GPT editor, then click <strong>&quot;Copy link&quot;</strong>. Open this link in your browser to start chatting with your GPT.
+              </li>
+              <li style={{ marginBottom: 0 }}>
+                <strong>From ChatGPT later:</strong> Go to <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc' }}>chat.openai.com</a>, click <strong>&quot;GPTs&quot;</strong> in the sidebar → <strong>&quot;Explore&quot;</strong> → then click <strong>&quot;My GPTs&quot;</strong> in the top-right corner to see all your custom GPTs
+              </li>
+            </ul>
+          </div>
+
+          <h4>🧪 Test commands to try:</h4>
+          <p style={{ margin: '0 0 0.5rem 0' }}>Once you&apos;re in the chat interface, try these commands to verify everything works:</p>
           <ol>
             <li>&quot;List all my Jira projects&quot;</li>
             <li>&quot;What Confluence spaces do I have?&quot;</li>
             <li>&quot;Show me recent Jira issues&quot;</li>
           </ol>
-          <p style={{ marginBottom: 0 }}>
-            If you get errors, check that your environment variables are set correctly and that your API tokens have the right permissions.
-          </p>
+
+          <div style={{
+            backgroundColor: '#fee2e2',
+            padding: '1rem',
+            borderRadius: '0.5rem',
+            marginTop: '1rem',
+            borderLeft: '4px solid #ef4444'
+          }}>
+            <p style={{ margin: 0, fontSize: '0.875rem' }}>
+              <strong>⚠️ Troubleshooting:</strong> If you get errors, check that your environment variables are set correctly in Vercel and that your API tokens have the right permissions.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -916,8 +1114,22 @@ export default function Home() {
         <p>
           Need help? Check the GitHub repository for issues and discussions.
         </p>
-        <p style={{ marginBottom: 0 }}>
+        <p style={{ marginBottom: '0.5rem' }}>
           Made with ❤️ for the Atlassian + ChatGPT community
+        </p>
+        <p style={{ marginBottom: 0, fontSize: '0.9rem' }}>
+          Created by{' '}
+          <a href="https://hoangphan.blog" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', textDecoration: 'none' }}>
+            hoangphan.blog
+          </a>
+          {' | '}
+          <a href="https://ai4ba.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', textDecoration: 'none' }}>
+            ai4ba.com
+          </a>
+          {' | '}
+          <a href="https://testgenai.com" target="_blank" rel="noopener noreferrer" style={{ color: '#0066cc', textDecoration: 'none' }}>
+            testgenai.com
+          </a>
         </p>
       </footer>
     </div>
